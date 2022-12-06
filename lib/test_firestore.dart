@@ -46,6 +46,10 @@ class _firestoreState extends State<firestore> {
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     return ListTile(
+                      onLongPress: () {
+                        db.collection("users").doc();
+                        _data[index].reference.delete().then((value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("data remove"))));
+                      },
                       title: Text("${_data[index].data()["first"]}"),
                     );
                   },
