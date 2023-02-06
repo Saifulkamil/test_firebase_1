@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_firebase_1/profil.dart';
+import 'package:test_firebase_1/singin.dart';
 import 'package:test_firebase_1/test_firestore.dart';
 
 
@@ -19,7 +22,19 @@ class _testfireState extends State<testfire> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: firestore(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder:(context, snapshot) {
+          if (snapshot.hasData) {
+            return profil();
+            
+          } else {
+            return singin();
+          }
+          
+          // return singin();
+        },
+      )
     );
   }
 }
